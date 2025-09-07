@@ -1,0 +1,27 @@
+{
+  "name": "simple-counter",
+  "version": "1.0.0",
+  "description": "## Description",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akash-parekh/redis-simple-counter.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akash-parekh/redis-simple-counter/issues"
+  },
+  "homepage": "https://github.com/akash-parekh/redis-simple-counter#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "redis": "^5.8.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
