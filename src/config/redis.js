@@ -34,3 +34,12 @@ export function createRedisClient({ host, port, db }) {
     client.on("error", (err) => console.error("Redis Client Error", err));
     return client;
 }
+
+export const incrWithExpiry = async (client, key, expirySeconds = 60) => {
+    const visits = await client.incr(key);
+    if (visits === 1) {
+        await client.expire(key, expirySeconds);
+    }
+    const ttl = await client.ttl(key);
+    return { visits, ttl };
+};
