@@ -16,5 +16,24 @@ export default (client) => {
         }
     });
 
+    router.get("/stats", async (req, res) => {
+        try {
+            const visits = parseInt(await client.get("visits"), 10) || 0;
+            let ttl = await client.ttl("visits");
+            if (ttl === -1) {
+                ttl = "No Expiry Set";
+            } else if (ttl === -2) {
+                ttl = "Key Expired or Does not exist.";
+            }
+            res.json({
+                visits,
+                ttl,
+            });
+        } catch (err) {
+            console.error("Error fetching stats:", err);
+            res.status(500).json({ error: "Internal Server Error" });
+        }
+    });
+
     return router;
 };
