@@ -1,32 +1,24 @@
-const express = require("express");
-const { createClient } = require("redis");
-require("dotenv").config();
+import dotenv from "dotenv";
+import { createApp } from "./src/app.js";
+import { createRedisClient, connectWithRetry } from "./src/config/redis.js";
 
-const app = express();
+dotenv.config();
 
 const REDIS_HOST = process.env.REDIS_HOST || "localhost";
 const REDIS_PORT = process.env.REDIS_PORT || 6379;
 const REDIS_DB = process.env.REDIS_DB || 0;
 
-const client = createClient({
-    socket: {
-        host: REDIS_HOST,
-        port: REDIS_PORT,
-    },
+const client = createRedisClient({
+    host: REDIS_HOST,
+    port: REDIS_PORT,
+    db: REDIS_DB,
 });
 
-client.on("error", (err) => console.log("Redis Client Error", err));
-
 async function start() {
-    await client.connect();
-
-    app.get("/", async (req, res) => {
-        const vists = await client.incr("visits");
-        res.send(`Number of visits: ${vists}`);
-    });
-
+    await connectWithRetry(client);
+    const app = createApp(client);
     app.listen(3000, () => {
-        console.log("Listening on port 3000");
+        console.log("Server Running at http://localhost:3000");
     });
 }
 
