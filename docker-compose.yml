@@ -9,3 +9,7 @@ services:
 
 volumes:
     redis-data:
+
+node:
+    environment:
+        - REDIS_HOST=redis

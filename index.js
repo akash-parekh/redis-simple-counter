@@ -1,12 +1,17 @@
 const express = require("express");
 const { createClient } = require("redis");
+require("dotenv").config();
 
 const app = express();
 
+const REDIS_HOST = process.env.REDIS_HOST || "localhost";
+const REDIS_PORT = process.env.REDIS_PORT || 6379;
+const REDIS_DB = process.env.REDIS_DB || 0;
+
 const client = createClient({
     socket: {
-        host: "localhost",
-        port: 6379,
+        host: REDIS_HOST,
+        port: REDIS_PORT,
     },
 });
 
