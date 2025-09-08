@@ -19,6 +19,7 @@ export async function connectWithRetry(client, retries = 5, delay = 1000) {
                 console.error(
                     "Could not connect to Redis after multiple attempts.",
                 );
+                throw err;
             }
         }
     }
