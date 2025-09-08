@@ -19,6 +19,7 @@
     },
     "homepage": "https://github.com/akash-parekh/redis-simple-counter#readme",
     "dependencies": {
+        "date-fns-tz": "^3.2.0",
         "dotenv": "^17.2.2",
         "express": "^5.1.0",
         "redis": "^5.8.2"
